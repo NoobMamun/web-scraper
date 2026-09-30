@@ -1,0 +1,21 @@
+{
+  "name": "site-scraper",
+  "version": "1.0.0",
+  "description": "Paste a URL, scrape public content, organize it into sections, export it.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "docx": "^9.8.1",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "robots-parser": "^3.0.1"
+  }
+}

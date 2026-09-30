@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site Scraper</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563eb'/><path d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.5' stroke-linecap='round'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Home -->
+  <main id="home" class="home">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8"/><path d="M9 11h14M9 16h14M9 21h9"/></svg>
+      </div>
+      <h1>Site Scraper</h1>
+      <p class="tagline">Paste a URL. Get the site's content organized by section, ready to export.</p>
+    </div>
+
+    <form id="scrape-form" class="scrape-form" novalidate>
+      <label for="url" class="sr-only">Website URL</label>
+      <input id="url" name="url" type="text" inputmode="url" autocomplete="url" spellcheck="false"
+             placeholder="https://example.com" required>
+      <button id="scrape-btn" type="submit" class="btn primary">Scrape Website</button>
+    </form>
+
+    <div class="options">
+      <label for="max-pages">Follow pagination up to</label>
+      <select id="max-pages">
+        <option value="1">1 page</option>
+        <option value="2">2 pages</option>
+        <option value="3" selected>3 pages</option>
+        <option value="5">5 pages</option>
+      </select>
+    </div>
+
+    <div id="progress" class="progress" hidden>
+      <div class="bar"><div id="progress-fill" class="fill"></div></div>
+      <p id="progress-text" class="progress-text" aria-live="polite">Starting…</p>
+    </div>
+
+    <div id="error" class="error" role="alert" hidden></div>
+
+    <p class="fineprint">Only publicly accessible pages are scraped. robots.txt rules are respected.</p>
+  </main>
+
+  <!-- Results -->
+  <main id="results" class="results" hidden>
+    <header class="results-header">
+      <div class="site">
+        <img id="site-favicon" class="favicon" alt="" referrerpolicy="no-referrer">
+        <div class="site-text">
+          <h1 id="site-title"></h1>
+          <a id="site-url" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="export">
+          <button id="export-btn" class="btn primary" aria-haspopup="menu" aria-expanded="false">
+            Export <span aria-hidden="true">▾</span>
+          </button>
+          <div id="export-menu" class="menu" role="menu" hidden>
+            <button role="menuitem" data-format="docx">Word <span>.docx</span></button>
+            <button role="menuitem" data-format="xlsx">Excel <span>.xlsx</span></button>
+            <button role="menuitem" data-format="csv">CSV <span>.csv</span></button>
+            <button role="menuitem" data-format="json">JSON <span>.json</span></button>
+          </div>
+        </div>
+        <button id="new-btn" class="btn">Scrape another</button>
+      </div>
+    </header>
+
+    <p id="stats" class="stats"></p>
+    <ul id="notes" class="notes"></ul>
+
+    <details id="categories" class="categories" hidden>
+      <summary>Site categories</summary>
+      <div id="category-list" class="chips"></div>
+    </details>
+
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search titles, descriptions, authors…" aria-label="Search results">
+      <div id="section-chips" class="chips" role="tablist" aria-label="Filter by section"></div>
+    </div>
+
+    <div id="sections"></div>
+    <p id="empty" class="empty" hidden>No items match your search.</p>
+  </main>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <template id="section-tpl">
+    <section class="section">
+      <button class="section-head" aria-expanded="true">
+        <span class="chev" aria-hidden="true">▾</span>
+        <h2></h2>
+        <span class="count"></span>
+      </button>
+      <ol class="items"></ol>
+      <button class="show-more btn subtle" hidden></button>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
